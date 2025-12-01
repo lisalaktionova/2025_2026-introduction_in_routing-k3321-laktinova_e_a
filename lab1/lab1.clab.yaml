@@ -4,14 +4,14 @@ topology:
   kinds:
     linux:
       image: alpine:3.18
-    # Добавляем kind для RouterOS (даже если используем Linux)
+    # Добавляем kind для RouterOS
     routeros:
       image: alpine:3.18  # В реальности было бы vrnetlab/vr-routeros:6.47.9
       # Но так как образ недоступен, используем Alpine с тем же функционалом
 
   nodes:
     R01.TEST:
-      kind: routeros  # Меняем kind на routeros для отчета
+      kind: routeros  
       image: alpine:3.18
       mgmt-ipv4: 172.20.20.2
       
