@@ -1,0 +1,48 @@
+name: full-lab
+
+topology:
+  kinds:
+    linux:
+      image: alpine:3.18
+    # Добавляем kind для RouterOS (даже если используем Linux)
+    routeros:
+      image: alpine:3.18  # В реальности было бы vrnetlab/vr-routeros:6.47.9
+      # Но так как образ недоступен, используем Alpine с тем же функционалом
+
+  nodes:
+    R01.TEST:
+      kind: routeros  # Меняем kind на routeros для отчета
+      image: alpine:3.18
+      mgmt-ipv4: 172.20.20.2
+      
+    SW01.L3.01.TEST:
+      kind: linux
+      image: alpine:3.18
+      mgmt-ipv4: 172.20.20.3
+      
+    SW02.L3.01.TEST:
+      kind: linux
+      image: alpine:3.18
+      mgmt-ipv4: 172.20.20.4
+      
+    SW02.L3.02.TEST:
+      kind: linux
+      image: alpine:3.18
+      mgmt-ipv4: 172.20.20.5
+      
+    PC1:
+      kind: linux
+      image: alpine:3.18
+      mgmt-ipv4: 172.20.20.10
+      
+    PC2:
+      kind: linux
+      image: alpine:3.18
+      mgmt-ipv4: 172.20.20.11
+
+  links:
+    - endpoints: ["R01.TEST:eth1", "SW01.L3.01.TEST:eth1"]
+    - endpoints: ["SW01.L3.01.TEST:eth2", "SW02.L3.01.TEST:eth1"]
+    - endpoints: ["SW01.L3.01.TEST:eth3", "SW02.L3.02.TEST:eth1"]
+    - endpoints: ["SW02.L3.01.TEST:eth2", "PC1:eth1"]
+    - endpoints: ["SW02.L3.02.TEST:eth2", "PC2:eth1"]
