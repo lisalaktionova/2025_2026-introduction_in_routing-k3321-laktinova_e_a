@@ -24,43 +24,20 @@
 
 R.01 - создаем `VLAN10`, `VLAN20`, выдаём интерфейсам ip. Выделяем диапазоны и поднимаем dhcp сервера, настраиваем их сети и шлюзы. Для каждого сетевого устройства также прописаны создание нового пользователя и смена имени:
 ```
-# Создание VLAN интерфейсов
-ip link add link eth1 name eth1.10 type vlan id 10
-ip link add link eth1 name eth1.20 type vlan id 20
+interface vlan add name=VLAN10 interface=ether2 vlan-id=10
+/interface vlan add name=VLAN20 interface=ether2 vlan-id=20
+/ip address add address=10.10.10.1/24 interface=VLAN10
+/ip address add address=10.10.20.1/24 interface=VLAN20
+/ip pool add name=POOL_VLAN10 ranges=10.10.10.2-10.10.10.100
+/ip pool add name=POOL_VLAN20 ranges=10.10.20.2-10.10.20.100
+/ip dhcp-server add name=DHCP_VLAN10 interface=VLAN10 address-pool=POOL_VLAN10 disabled=no
+/ip dhcp-server add name=DHCP_VLAN20 interface=VLAN20 address-pool=POOL_VLAN20 disabled=no
+/ip dhcp-server network add address=10.10.10.0/24 gateway=10.10.10.1
+/ip dhcp-server network add address=10.10.20.0/24 gateway=10.10.20.1
+/system identity set name=R.01
+/user add name=lisa group=full password=12345
+/user remove admin
 
-# Назначение IP-адресов
-ip addr add 10.10.10.1/24 dev eth1.10
-ip addr add 10.10.20.1/24 dev eth1.20
-
-# Включение интерфейсов
-ip link set eth1 up
-ip link set eth1.10 up
-ip link set eth1.20 up
-
-# Включение IP-форвардинга
-echo 1 > /proc/sys/net/ipv4/ip_forward
-
-# Настройка DHCP через dnsmasq
-cat > /etc/dnsmasq.conf << 'EOF'
-interface=eth1.10
-dhcp-range=10.10.10.100,10.10.10.150,255.255.255.0
-dhcp-option=3,10.10.10.1
-
-interface=eth1.20
-dhcp-range=10.10.20.100,10.10.20.150,255.255.255.0
-dhcp-option=3,10.10.20.1
-EOF
-
-# Запуск DHCP сервера
-dnsmasq &
-
-# Смена имени устройства
-hostname R01.TEST
-
-# Создание пользователя и смена пароля
-echo 'root:newpassword' | chpasswd
-adduser -D -s /bin/sh user1
-echo 'user1:password123' | chpasswd
 ```
 
 Проверка конфигурации:
@@ -75,32 +52,22 @@ ps aux | grep dnsmasq
 
 SW01.L3.01 - объединяем порты в мост, прописываем trunk порты. Получаем ip через dhcp клиентов:
 ```
-# Создание bridge
-ip link add name br0 type bridge
-ip link set eth1 master br0
-ip link set eth2 master br0
-ip link set eth3 master br0
-ip link set br0 up
+/interface bridge add name=bridge0 vlan-filtering=yes
+/interface bridge port add bridge=bridge0 interface=ether2
+/interface bridge port add bridge=bridge0 interface=ether3
+/interface bridge port add bridge=bridge0 interface=ether4
+/interface bridge vlan add bridge=bridge0 vlan-ids=10 tagged=bridge0,ether2,ether3
+/interface bridge vlan add bridge=bridge0 vlan-ids=20 tagged=bridge0,ether2,ether4
+/interface vlan add name=vlan10 interface=bridge0 vlan-id=10
+/interface vlan add name=vlan20 interface=bridge0 vlan-id=20
+/ip dhcp-client add interface=vlan10
+/ip dhcp-client add interface=vlan20
+/ip dhcp-client enable numbers=1
+/ip dhcp-client enable numbers=2
+/system identity set name=SW01.L3.01
+/user add name=lisa group=full password=12345
+/user remove admin
 
-# Настройка VLAN filtering
-ip link set br0 type bridge vlan_filtering 1
-
-# Конфигурация VLAN
-bridge vlan add dev eth1 vid 10
-bridge vlan add dev eth1 vid 20
-bridge vlan add dev eth2 vid 10
-bridge vlan add dev eth3 vid 20
-
-# Выключение STP
-ip link set br0 type bridge stp_state 0
-
-# Смена имени устройства
-hostname SW01.L3.01.TEST
-
-# Создание пользователя
-echo 'root:newpassword' | chpasswd
-adduser -D -s /bin/sh user1
-echo 'user1:password123' | chpasswd
 ```
 
 Проверка конфигурации:
@@ -114,22 +81,17 @@ bridge link show
 
 SW02.L3.01 - аналогично с центральным свитчом, но теперь появляются access порты для пк (pvid нужен для привязки нетегированного трафика от пк к vlan10):
 ```
-# Создание bridge
-ip link add name br0 type bridge
-ip link set eth1 master br0
-ip link set eth2 master br0
-ip link set br0 up
-
-# Настройка VLAN
-ip link set br0 type bridge vlan_filtering 1
-bridge vlan add dev eth1 vid 10
-bridge vlan add dev eth2 vid 10 pvid untagged
-
-# Смена имени
-hostname SW02.L3.01.TEST
-echo 'root:newpassword' | chpasswd
-adduser -D -s /bin/sh user1
-echo 'user1:password123' | chpasswd
+/interface bridge add name=bridge0 vlan-filtering=yes
+/interface bridge port add bridge=bridge0 interface=ether2
+/interface bridge port add bridge=bridge0 interface=ether3
+/interface bridge vlan add bridge=bridge0 vlan-ids=10 tagged=bridge0,ether2 untagged=ether3
+/interface bridge port set pvid=10 numbers=1
+/interface vlan add name=vlan10 interface=bridge0 vlan-id=10
+/ip dhcp-client add interface=vlan10
+/ip dhcp-client enable numbers=1
+/system identity set name=SW02.L3.01
+/user add name=lisa group=full password=12345
+/user remove admin
 
 ```
 
@@ -137,22 +99,18 @@ echo 'user1:password123' | chpasswd
 
 SW02.L3.02 - аналогично SW02.L3.01 за исключениям изменения номера `VLAN`:
 ```
-# Создание bridge
-ip link add name br0 type bridge
-ip link set eth1 master br0
-ip link set eth2 master br0
-ip link set br0 up
+/interface bridge add name=bridge0 vlan-filtering=yes
+/interface bridge port add bridge=bridge0 interface=ether2
+/interface bridge port add bridge=bridge0 interface=ether3
+/interface bridge vlan add bridge=bridge0 vlan-ids=20 tagged=bridge0,ether2 untagged=ether3
+/interface bridge port set pvid=20 numbers=1
+/interface vlan add name=vlan20 interface=bridge0 vlan-id=20
+/ip dhcp-client add interface=vlan20
+/ip dhcp-client enable numbers=1
+/system identity set name=SW02.L3.02
+/user add name=lisa group=full password=12345
+/user remove admin
 
-# Настройка VLAN
-ip link set br0 type bridge vlan_filtering 1
-bridge vlan add dev eth1 vid 20
-bridge vlan add dev eth2 vid 20 pvid untagged
-
-# Смена имени
-hostname SW02.L3.02.TEST
-echo 'root:newpassword' | chpasswd
-adduser -D -s /bin/sh user1
-echo 'user1:password123' | chpasswd
 ```
 
 # 2. Получение ip от dhcp-серверов на пк
