@@ -37,7 +37,6 @@ interface vlan add name=VLAN10 interface=ether2 vlan-id=10
 /system identity set name=R.01
 /user add name=lisa group=full password=12345
 /user remove admin
-
 ```
 
 Проверка конфигурации:
@@ -67,7 +66,6 @@ SW01.L3.01 - объединяем порты в мост, прописываем
 /system identity set name=SW01.L3.01
 /user add name=lisa group=full password=12345
 /user remove admin
-
 ```
 
 Проверка конфигурации:
@@ -92,7 +90,6 @@ SW02.L3.01 - аналогично с центральным свитчом, но
 /system identity set name=SW02.L3.01
 /user add name=lisa group=full password=12345
 /user remove admin
-
 ```
 
 Экспорт конфигурации:
@@ -110,7 +107,6 @@ SW02.L3.02 - аналогично SW02.L3.01 за исключениям изм�
 /system identity set name=SW02.L3.02
 /user add name=lisa group=full password=12345
 /user remove admin
-
 ```
 
 # 2. Получение ip от dhcp-серверов на пк
