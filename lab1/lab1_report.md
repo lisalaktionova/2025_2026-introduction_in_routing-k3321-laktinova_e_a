@@ -241,7 +241,7 @@ ip, выданные dhcp серверами и попробуем пропин�
 
 Проверки:
 
-![Пинг](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab1/img/check.png)
+![Пинг](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab1/img/checking.png)
 
 Пинг между PC1 и PC2:
 
