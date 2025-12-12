@@ -7,7 +7,7 @@
 - Author: Laktionova Elizaveta Artemovna
 - Lab: Lab1
 - Date of create: 10.11.2025
-- Date of finished: 01.12.2025
+- Date of finished: 12.12.2025
 
 # 0. prepare
 Лабораторная работа выполнялась в виртуальной машине VMware Workstation.
