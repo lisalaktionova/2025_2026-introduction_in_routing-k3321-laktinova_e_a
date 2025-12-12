@@ -13,17 +13,19 @@
 Лабораторная работа выполнялась в виртуальной машине VMware Workstation.
 Конфигурация лабы:
 
+![Схема](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab1/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202025-12-01%20171519.png)
+
 ```
 ╭─────────────────────────────────┬──────────────────────┬─────────┬───────────────────╮
 │              Name               │     Kind/Image       │  State  │   IPv4 Address    │
 ├─────────────────────────────────┼──────────────────────┼─────────┼───────────────────┤
-│ clab-full-lab-PC1               │ linux                │ running │ 172.20.20.10      │
-│                                 │ alpine:3.18          │         │                   │
+│ clab-lab1-PC1                   │ linux                │ running │ 172.20.20.101     │
+│                                 │ alpine:latest        │         │                   │
 ├─────────────────────────────────┼──────────────────────┼─────────┼───────────────────┤
-│ clab-full-lab-PC2               │ linux                │ running │ 172.20.20.11      │
-│                                 │ alpine:3.18          │         │                   │
+│ clab-full-lab-PC2               │ linux                │ running │ 172.20.20.102     │
+│                                 │ alpine:latest        │         │                   │
 ├─────────────────────────────────┼──────────────────────┼─────────┼───────────────────┤
-│ clab-full-lab-R01.TEST          │ linux                │ running │ 172.20.20.2       │
+│ clab-lab-R01.TEST               │ vr-ros               │ running │ 172.20.20.2       │
 │                                 │ alpine:3.18          │         │                   │
 ├─────────────────────────────────┼──────────────────────┼─────────┼───────────────────┤
 │ clab-full-lab-SW01.L3.01.TEST   │ linux                │ running │ 172.20.20.3       │
