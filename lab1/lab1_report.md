@@ -231,44 +231,13 @@ add disabled=no interface=vlan20
 set name=SW02.L3.02
 ```
 
-# 2. Получение ip от dhcp-серверов на пк
-
-PC1 - получаем ip от роутера, прописываем маршрут от одной сети к другой:
-```
-# Получение IP через DHCP
-udhcpc -i eth1 -n -q
-
-# Результат:
-# udhcpc: started, v1.36.1
-# udhcpc: broadcasting discover
-# udhcpc: broadcasting select for 10.10.10.103, server 10.10.10.1
-# udhcpc: lease of 10.10.10.103 obtained from 10.10.10.1, lease time 3600
-
-# Проверка IP-адреса
-ip addr show eth1
-# 46: eth1@if45: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP 
-#     inet 10.10.10.103/24 brd 10.10.10.255 scope global eth1
-
-# Добавление маршрута к VLAN 20
-ip route add 10.10.20.0/24 via 10.10.10.1
-```
-PC2:
-Аналогично PC1, за исключением роута
-```
-# Получение IP через DHCP
-udhcpc -i eth1 -n -q
-
-# Настройка статического IP (если DHCP не сработал)
-ip addr add 10.10.20.20/24 dev eth1
-ip route add default via 10.10.20.1
-
-# Добавление маршрута к VLAN 10
-ip route add 10.10.10.0/24 via 10.10.20.1
-```
-
-# 3.  Схема связи, пинги, проверка выдачи ip
+# 2.  Схема связи, пинги, проверка выдачи ip
 
 ![Схема](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab1/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202025-12-01%20171519.png)
+
+ip, выданные dhcp серверами и попробуем пропинговать оба пк с роутера:
+
+![Пинг](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab1/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202025-12-01%20170848.png)
 
 Проверки:
 
