@@ -14,7 +14,7 @@
 
 Конфигурация лабы:
 
-![Схема](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab2/img/conf.png)
+![Схема](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab2/img/conf2.png)
 
 Схема сети:
 
