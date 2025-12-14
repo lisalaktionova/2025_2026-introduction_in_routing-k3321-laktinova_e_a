@@ -18,7 +18,7 @@
 
 Схема сети:
 
-![схема сети](img/img1.png)
+![схема сети](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab2/img/diagram.png)
 
 # 1. Настройка сетевого оборудования
 
@@ -27,8 +27,8 @@
 Назначаем ip адреса интерфейсам, ведущим к другим роутерам:
 
 ```
-/ip address add address=192.168.1.1/30 interface=ether2
-/ip address add address=192.168.2.1/30 interface=ether3
+/ip address add address=172.21.21.1/30 interface=ether2
+/ip address add address=172.21.21.1/30 interface=ether3
 ```
 
 Назначаем ip адрес интерфейсу, ведущему к ПК:
@@ -48,8 +48,8 @@
 Прописываем статические маршруты к двум другим подсетям с ПК:
 
 ```
-/ip route add dst-address=10.0.1.0/24 gateway=192.168.1.2
-/ip route add dst-address=10.0.2.0/24 gateway=192.168.2.2
+/ip route add dst-address=10.0.1.0/24 gateway=172.21.21.2
+/ip route add dst-address=10.0.2.0/24 gateway=172.21.21.2
 ```
 
 Меняем название, юзера, пароль:
