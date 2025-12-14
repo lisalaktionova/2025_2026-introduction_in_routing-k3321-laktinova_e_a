@@ -101,17 +101,7 @@ R.01.MSK:
 - поднятие dhcp сервера: `udhcpc -i eth1`
 - два роута к другим подсетям с ПК: `ip route add 10.0.x.0/24 via 10.0.3.1 dev eth1`
 
-# 3. Проверка сети
+# 3. Результаты пингов
 
-Использованные команды:
 
-- `/ip dhcp-server lease print` - подтверждение выдачи ip ПК
-- `ip route print` - вывод заданных маршрутов
-
-Пинг роутеров между собой на примере R.01.BRL:
-
-![ping роутеров](img/img2.png)
-
-Пинг ПК между собой на примере PC1:
-
-![ping пк](img/img3.png)
+![ping пк]([img/img3.png](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab2/img/result.png))
