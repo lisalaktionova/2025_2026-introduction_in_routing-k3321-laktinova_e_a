@@ -102,6 +102,4 @@ R.01.MSK:
 - два роута к другим подсетям с ПК: `ip route add 10.0.x.0/24 via 10.0.3.1 dev eth1`
 
 # 3. Результаты пингов
-
-
-![ping пк]([img/img3.png](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab2/img/result.png))
+![ping пк](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab2/img/result.png)
