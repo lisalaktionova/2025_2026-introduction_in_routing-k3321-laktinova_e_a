@@ -1,54 +1,58 @@
-name: lab1
+name: lab2
 
 mgmt:
   network: mgmt-network
-  ipv4-subnet: 172.20.20.0/24
+  ipv4-subnet: 172.21.21.0/24
 
 topology:
   nodes:
-    RO1.TEST:
+    R01.BRL:
       kind: vr-ros
       image: vrnetlab/mikrotik_routeros:6.47.9
-      mgmt-ipv4: 172.20.20.2
-      startup-config: configs/R01.rsc
+      mgmt-ipv4: 172.21.21.2
+      startup-config: configs-lab2/R01.BRL.rsc
 
-    SW01.L3.01.TEST:
+    R01.MSK:
       kind: vr-ros
       image: vrnetlab/mikrotik_routeros:6.47.9
-      mgmt-ipv4: 172.20.20.10
-      startup-config: configs/SW01.L3.01.rsc
+      mgmt-ipv4: 172.21.21.3
+      startup-config: configs-lab2/R01.MSK.rsc
 
-    SW02.L3.01.TEST:
+    R01.FRT:
       kind: vr-ros
       image: vrnetlab/mikrotik_routeros:6.47.9
-      mgmt-ipv4: 172.20.20.11
-      startup-config: configs/SW02.L3.01.rsc
-
-    SW02.L3.02.TEST:
-      kind: vr-ros
-      image: vrnetlab/mikrotik_routeros:6.47.9
-      mgmt-ipv4: 172.20.20.12
-      startup-config: configs/SW02.L3.02.rsc
+      mgmt-ipv4: 172.21.21.4
+      startup-config: configs-lab2/R01.FRT.rsc
 
     PC1:
       kind: linux
       image: alpine:latest
-      mgmt-ipv4: 172.20.20.101
+      mgmt-ipv4: 172.21.21.101
       exec:
         - udhcpc -i eth1
-        - ip route add 10.10.20.0/24 via 10.10.10.1 dev eth1
+        - ip route add 10.0.2.0/24 via 10.0.1.1 dev eth1
+        - ip route add 10.0.3.0/24 via 10.0.1.1 dev eth1
 
     PC2:
       kind: linux
       image: alpine:latest
-      mgmt-ipv4: 172.20.20.102
+      mgmt-ipv4: 172.21.21.102
       exec:
         - udhcpc -i eth1
-        - ip route add 10.10.20.0/24 via 10.10.10.1 dev eth1
-
+        - ip route add 10.0.1.0/24 via 10.0.2.1 dev eth1
+        - ip route add 10.0.3.0/24 via 10.0.2.1 dev eth1
+    PC3:
+      kind: linux
+      image: alpine:latest
+      mgmt-ipv4: 172.21.21.103
+      exec:
+        - udhcpc -i eth1
+        - ip route add 10.0.1.0/24 via 10.0.3.1 dev eth1
+        - ip route add 10.0.2.0/24 via 10.0.3.1 dev eth1
   links:
-    - endpoints: ["RO1.TEST:eth1", "SW01.L3.01.TEST:eth1"]
-    - endpoints: ["SW01.L3.01.TEST:eth2", "SW02.L3.01.TEST:eth1"]
-    - endpoints: ["SW01.L3.01.TEST:eth3", "SW02.L3.02.TEST:eth1"]
-    - endpoints: ["SW02.L3.01.TEST:eth2", "PC1:eth1"]
-    - endpoints: ["SW02.L3.02.TEST:eth2", "PC2:eth1"]
+    - endpoints: ["R01.BRL:eth1", "R01.MSK:eth1"]
+    - endpoints: ["R01.BRL:eth2", "R01.FRT:eth1"]
+    - endpoints: ["R01.MSK:eth2", "R01.FRT:eth2"]
+    - endpoints: ["R01.MSK:eth3", "PC1:eth1"]
+    - endpoints: ["R01.FRT:eth3", "PC2:eth1"]
+    - endpoints: ["R01.BRL:eth3", "PC3:eth1"]
