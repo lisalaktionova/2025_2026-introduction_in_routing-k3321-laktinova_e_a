@@ -100,9 +100,3 @@
 ![eompls](img/img5.png)
 
 ![ping](img/img6.png)
-
-# Полезные материалы
-
-[ospf mikrotik](https://itproffi.ru/ospf-mikrotik-polnaya-instruktsiya-po-nastrojki-ospf-na-mikrotik/)
-[vpls mikrotik](https://habr.com/ru/articles/169103/)
-[l2vpn](https://selectel.ru/blog/l3vpn-l2vpn/)
