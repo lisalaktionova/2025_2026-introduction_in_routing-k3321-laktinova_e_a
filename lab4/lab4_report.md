@@ -14,7 +14,7 @@
 
 Схема сети:
 
-![схема сети](img/image1.png)
+![схема сети](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab4/img/scheme.png)
 
 Аналогично 3й лабораторной были настроены ip адреса на интерфейсах, ospf и mpls. Пример конфигурации для роутера из Хельсинки:
 
