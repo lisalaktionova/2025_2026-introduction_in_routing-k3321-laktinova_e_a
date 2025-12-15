@@ -23,5 +23,5 @@
 /routing bgp peer add name=LBN remote-address=10.0.255.5 remote-as=65123 address-families=l2vpn,vpnv4 instance=default update-source=loopback route-reflect=yes
 
 /system identity set name=R01.HKI
-/user add name=agonek group=full password=******
+/user add name=lisa group=full password=12345
 /user remove admin
