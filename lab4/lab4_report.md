@@ -42,7 +42,7 @@
 
 `ip route print` и `mpls forwarding-table print`
 
-![mpls_ospf](img/image2.png)
+![mpls_ospf]()
 
 Для настройки iBGP с RR кластером выбрали в качестве RR роутера R01.LND и присвоили ему `cluster-id = 10.255.255.255`. Роутеры R01.HKI и R01.LBN так же входят в этот кластер, поэтому для них в пире прописывается `route-reflect=yes`, для остальных роутеров - `route-reflect=no`. Также в пире прописывается адрес лупбека роутера назначения (10.0.255.x). В качестве AS был выбран 65123 (всего AS одна). Обязательно прописывается `address-families=l2vpn,vpnv4 `, `l2vpn` для vpls, а `vpnv4` для vrf (так как нам нужно передавать не обычные ipv4 маршруты).
 
@@ -58,7 +58,7 @@
 
 `routing bgp peer print` и `ip route print where bgp`
 
-![bgp](img/image3.png)
+![bgp]()
 
 # Часть 1
 
@@ -75,7 +75,7 @@
 
 `ip route print where routing-mark=vrf_devops` и `ping 10.0.255.16 routing-table=vrf_devops src=10.0.255.11`
 
-![vrf](img/image4.png)
+![vrf]()
 
 # Часть 2
 
