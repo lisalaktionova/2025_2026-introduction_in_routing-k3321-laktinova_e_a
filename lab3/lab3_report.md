@@ -11,6 +11,9 @@
 - Date of finished: 15.12.2025
 
 # main part
+Конфигурация лабы:
+
+![Схема](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab3/img/conf.png)
 
 Схема сети:
 
