@@ -96,5 +96,5 @@
 
 `interface vpls bgp-vpls print` и `ip dhcp lease print`
 
-![vpls](img/image9.png)
-![ping](img/image10.png)
+![vpls]()
+![ping]()
