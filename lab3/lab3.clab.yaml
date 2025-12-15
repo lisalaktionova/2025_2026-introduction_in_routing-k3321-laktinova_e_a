@@ -1,0 +1,69 @@
+name: lab3
+
+mgmt:
+  network: mgmt-network
+  ipv4-subnet: 192.168.1.0/24
+
+topology:
+  nodes:
+    R01.NY:
+      kind: vr-ros
+      image: vrnetlab/mikrotik_routeros:6.47.9
+      mgmt-ipv4: 192.168.1.2
+      startup-config: configs-lab3/R01.NY.rsc
+
+    R01.LND:
+      kind: vr-ros
+      image: vrnetlab/mikrotik_routeros:6.47.9
+      mgmt-ipv4: 192.168.1.3
+      startup-config: configs-lab3/R01.LND.rsc
+
+    R01.HKI:
+      kind: vr-ros
+      image: vrnetlab/mikrotik_routeros:6.47.9
+      mgmt-ipv4: 192.168.1.4
+      startup-config: configs-lab3/R01.HKI.rsc
+
+    R01.SPB:
+      kind: vr-ros
+      image: vrnetlab/mikrotik_routeros:6.47.9
+      mgmt-ipv4: 192.168.1.5
+      startup-config: configs-lab3/R01.SPB.rsc
+
+    R01.MSK:
+      kind: vr-ros
+      image: vrnetlab/mikrotik_routeros:6.47.9
+      mgmt-ipv4: 192.168.1.6
+      startup-config: configs-lab3/R01.MSK.rsc
+
+    R01.LBN:
+      kind: vr-ros
+      image: vrnetlab/mikrotik_routeros:6.47.9
+      mgmt-ipv4: 192.168.1.7
+      startup-config: configs-lab3/R01.LBN.rsc
+
+    SGI_Prism:
+      kind: linux
+      image: alpine:latest
+      mgmt-ipv4: 192.168.1.8
+      exec:
+        - udhcpc -i eth1
+
+    PC1:
+      kind: linux
+      image: alpine:latest
+      mgmt-ipv4: 192.168.1.9
+      exec:
+        - udhcpc -i eth1
+        - ip route del default via 192.168.1.1 dev eth0
+
+  links:
+    - endpoints: ["R01.NY:eth1", "R01.LND:eth1"]
+    - endpoints: ["R01.NY:eth2", "R01.LBN:eth1"]
+    - endpoints: ["R01.NY:eth3", "SGI_Prism:eth1"]
+    - endpoints: ["R01.LND:eth2", "R01.HKI:eth1"]
+    - endpoints: ["R01.HKI:eth2", "R01.SPB:eth1"]
+    - endpoints: ["R01.HKI:eth3", "R01.LBN:eth2"]
+    - endpoints: ["R01.SPB:eth2", "R01.MSK:eth1"]
+    - endpoints: ["R01.SPB:eth3", "PC1:eth1"]
+    - endpoints: ["R01.MSK:eth2", "R01.LBN:eth3"]
