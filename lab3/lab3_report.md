@@ -17,7 +17,7 @@
 
 Схема сети:
 
-![схема сети](img/img1.png)
+![схема сети](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab3/img/scheme.png)
 
 # Настройка роутеров
 
@@ -83,20 +83,15 @@
 # OSPF
 
 Видно, что все маршруты подтянулись за счет использования ospf без статического прописывания каждого маршрута на всех роутеров:
-![ospf](img/img2.png)
+![ospf](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab3/img/img_1.png)
 
 # MPLS
 
 Можно увидеть метки, которые будут назначены отправленным пакетам:
-![mpls](img/img3.png)
+![mpls](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab3/img/mpls.png)
 
-С помощью traceroute можно увидеть как работает ospf и mpls:
-![ospf-mpls](img/img4.png)
+Проверим пинг пк:
 
-# EoMPLS
-
-Проверим настройку EoMPLS и пинг пк:
-
-![eompls](img/img5.png)
+![eompls](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab3/img/pc.png)
 
 ![ping](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab3/img/ping.png)
