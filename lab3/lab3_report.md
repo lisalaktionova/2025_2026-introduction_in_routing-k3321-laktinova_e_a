@@ -64,7 +64,7 @@
 /mpls ldp interface add interface=ether3
 ```
 
-Остаётся только настроить EoMPLS. Для этого создаем vpls интерфейс, указываем в качестве remote-peer ip loopback роутера в Спб и назначаем на обоих роутерах одинаковый cisco-style-id. Добавляем в loopback интерфейс, ведущий к конечному устройству и сам vpls:
+Настраиваем EoMPLS. Для этого создаем vpls интерфейс, указываем в качестве remote-peer ip loopback роутера в Спб и назначаем на обоих роутерах одинаковый cisco-style-id. Добавляем в loopback интерфейс, ведущий к конечному устройству и сам vpls:
 
 ```
 /interface vpls add name=vpn remote-peer=4.4.4.4 disabled=no cisco-style=yes cisco-style-id=14
