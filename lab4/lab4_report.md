@@ -42,7 +42,9 @@
 
 `ip route print` и `mpls forwarding-table print`
 
-![mpls_ospf]()
+![(https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab4/img/check1.png)]()
+
+![(https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab4/img/check2.png)]()
 
 Для настройки iBGP с RR кластером выбрали в качестве RR роутера R01.LND и присвоили ему `cluster-id = 10.255.255.255`. Роутеры R01.HKI и R01.LBN так же входят в этот кластер, поэтому для них в пире прописывается `route-reflect=yes`, для остальных роутеров - `route-reflect=no`. Также в пире прописывается адрес лупбека роутера назначения (10.0.255.x). В качестве AS был выбран 65123 (всего AS одна). Обязательно прописывается `address-families=l2vpn,vpnv4 `, `l2vpn` для vpls, а `vpnv4` для vrf (так как нам нужно передавать не обычные ipv4 маршруты).
 
