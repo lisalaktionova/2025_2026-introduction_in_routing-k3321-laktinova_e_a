@@ -60,7 +60,7 @@
 
 `routing bgp peer print` и `ip route print where bgp`
 
-![bgp]()
+![](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab4/img/check3.png)
 
 # Часть 1
 
