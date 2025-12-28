@@ -77,7 +77,7 @@
 
 `ip route print where routing-mark=vrf_devops` и `ping 10.0.255.16 routing-table=vrf_devops src=10.0.255.11`
 
-![vrf]()
+![](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab4/img/check_ping1.png)
 
 # Часть 2
 
