@@ -47,7 +47,7 @@ topology:
       image: alpine:latest
       mgmt-ipv4: 192.168.2.8
       exec:
-        - udhcpc -i eth1
+        #- udhcpc -i eth1
         - ip route del default via 192.168.2.1 dev eth0
 
     PC2:
@@ -55,7 +55,7 @@ topology:
       image: alpine:latest
       mgmt-ipv4: 192.168.2.9
       exec:
-        - udhcpc -i eth1
+        #- udhcpc -i eth1
         - ip route del default via 192.168.2.1 dev eth0
 
     PC3:
@@ -63,7 +63,7 @@ topology:
       image: alpine:latest
       mgmt-ipv4: 192.168.2.10
       exec:
-        - udhcpc -i eth1
+        #- udhcpc -i eth1
         - ip route del default via 192.168.2.1 dev eth0
 
   links:
