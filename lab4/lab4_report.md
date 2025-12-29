@@ -99,4 +99,4 @@
 `interface vpls bgp-vpls print` и `ip dhcp lease print`
 
 ![](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab4/img/vpls.png)
-![ping]()
+![ping](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab4/img/ping_2.png)
