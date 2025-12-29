@@ -8,7 +8,7 @@
 - Author: Laktionova Elizaveta Artemovna
 - Lab: Lab4
 - Date of create: 14.12.2025
-- Date of finished: 15.12.2025
+- Date of finished: 29.12.2025
 
 # Общая часть
 
