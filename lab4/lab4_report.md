@@ -81,17 +81,28 @@
 
 # Часть 2
 
-Снесли vrf и настроила мост для vpls, куда включила интерфейс, ведущий к конечному устройству. Также необходимо было прописать RD, RT аналогично vrf и задать site-id (уникальный номер конечного роутера). Так как vpls работает на 2 уровне, я подняла dhcp сервер (на R01.SVL) для раздачи ip конечным устройствам из одной сети `172.16.1.0/24`.
+Реализовали услугу VPLS (Virtual Private LAN Service) поверх MPLS с использованием BGP-signaling.
+На PE-маршрутизаторах была удалена конфигурация VRF, после чего был создан мост bridge vpls, в который включён интерфейс, ведущий к конечному устройству. Таким образом, клиентские сегменты сети были объединены на канальном уровне (L2), без использования маршрутизации между ними.
 
+Для работы VPLS были настроены следующие параметры Route Distinguisher (RD), Import / Export Route Targets (RT)и Site-ID, уникальный для каждого PE-маршрутизатора.
+
+Каждому PE-маршрутизатору был назначен IP-адрес на интерфейсе vpls. Этот адрес используется исключительно для служебных и диагностических целей, так как передача клиентского трафика осуществляется на втором уровне модели OSI.
+
+IP-адреса конечным устройствам задаются статически, все они находятся в одной подсети 172.16.1.0/24, что позволяет обеспечить их прозрачное взаимодействие через VPLS-домен.
+
+Пример конфигурации VPLS на PE-маршрутизаторе
 ```
 /interface bridge add name=vpls
-/interface bridge port add bridge=vpls interface=ether3
-/ip address add address=10.10.255.16/24 interface=vpls
-/interface vpls bgp-vpls add bridge=vpls route-distinguisher=65123:11 import-route-targets=65123:11 export-route-targets=65123:11 site-id=16
+/interface bridge port add bridge=vpls interface=ether1
 
-/ip pool add name=vpls_pool ranges=172.16.1.10-172.16.1.100
-/ip dhcp-server network add address=172.16.1.0/24 gateway=172.16.1.1
-/ip dhcp-server add address-pool=vpls_pool disabled=no interface=vpls name=dhcp_vpls
+/ip address add address=10.10.255.11/24 interface=vpls
+
+/interface vpls bgp-vpls add \
+  bridge=vpls \
+  route-distinguisher=65123:11 \
+  import-route-targets=65123:11 \
+  export-route-targets=65123:11 \
+  site-id=11
 ```
 
 Проверка:
