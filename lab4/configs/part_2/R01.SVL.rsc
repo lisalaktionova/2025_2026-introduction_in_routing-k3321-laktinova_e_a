@@ -21,10 +21,6 @@
 /ip address add address=10.10.255.16/24 interface=vpls
 /interface vpls bgp-vpls add bridge=vpls route-distinguisher=65123:11 import-route-targets=65123:11 export-route-targets=65123:11 site-id=16
 
-/ip pool add name=vpls_pool ranges=172.16.1.10-172.16.1.100
-/ip dhcp-server network add address=172.16.1.0/24 gateway=172.16.1.1
-/ip dhcp-server add address-pool=vpls_pool disabled=no interface=vpls name=dhcp_vpls
-
 /system identity set name=R01.SVL
 /user add name=lisa group=full password=12345
 /user remove admin
