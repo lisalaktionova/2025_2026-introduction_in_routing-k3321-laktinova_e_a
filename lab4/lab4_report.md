@@ -107,7 +107,7 @@ IP-адреса конечным устройствам задаются ста�
 
 Проверка:
 
-`interface vpls bgp-vpls print` и `ip dhcp lease print`
+`interface vpls bgp-vpls print`
 
 ![](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab4/img/vpls.png)
 ![ping](https://github.com/lisalaktionova/2025_2026-introduction_in_routing-k3321-laktinova_e_a/blob/main/lab4/img/ping_2.png)
